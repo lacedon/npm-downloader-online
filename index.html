@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>NPM downloader</title>
+
+  <style>
+    :root {
+      color: #f0f8ff;
+      font-family: Roboto, Helvetica, Calibri, sans-serif;
+      font-size: 3vmin;
+    }
+
+    body {
+      background: #607080;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 0;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0;
+    }
+
+    input {
+      border: 0 solid transparent;
+      background: rgba(255, 255, 255, 0.25);
+      padding: 1rem 2rem;
+      font-size: inherit;
+      color: inherit;
+      font-weight: lighter;
+      background-color: rgba(240, 248, 255, .25);
+      outline: none;
+      width: 20rem;
+      display: block;
+      box-sizing: border-box;
+      box-shadow:
+          0 0 0.1rem rgba(71, 79, 86, 1) inset,
+          0.1rem 0.1rem 0.5rem rgba(71, 79, 86, .25) inset,
+          0.25rem 0.25rem 1rem rgba(71, 79, 86, .1) inset;
+      transition:
+        color .3s,
+        background-color .3s,
+        border-bottom-color .3s,
+        box-shadow .3s;
+    }
+
+    input:first-child {
+      border-radius: .25rem 0 0 .25rem;
+    }
+    input:last-child {
+      border-radius: 0 .25rem .25rem 0;
+    }
+
+    input:hover,
+    input:focus {
+      box-shadow:
+          0 0 .1rem rgba(240, 248, 255, 1) inset,
+          .1rem .1rem .5rem rgba(240, 248, 255, .25) inset,
+          .25rem .25rem 1rem rgba(240, 248, 255, .1) inset;
+    }
+    
+    input::placeholder {
+      color: rgba(240, 248, 255, .5);
+    }
+
+    input[type="submit"] {
+      border: 0;
+      cursor: pointer;
+      width: 10rem;
+      padding-left: .25rem;
+      padding-right: .25rem;
+      text-align: center;
+      border-bottom-color: transparent;
+      box-shadow: none;
+      background: #475ab2;
+    }
+
+    input[type="submit"]:hover,
+    input[type="submit"]:focus {
+      background-color: #203389;
+      border-bottom-color: transparent;
+    }
+
+    section {
+      font-size: .8rem;
+      color: rgba(240, 248, 255, .75);
+      width: 100%;
+      text-align: center;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+
+    @media all and (max-width: 50rem) {
+      :root {
+        font-size: 4.5vmin;
+      }
+
+      input,
+      input[type="submit"] {
+        width: 100%;
+      }
+
+      input:first-child {
+        border-radius: .25rem .25rem 0 0;
+      }
+      input:last-child {
+        border-radius: 0 0 .25rem .25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <form action="/" method="GET">
+    <input name="p" placeholder="Type package name..." required />
+    <input type="submit" value="Download" />
+  </form>
+
+  <section>
+    You&nbsp;can&nbsp;find&nbsp;and&nbsp;download any&nbsp;number&nbsp;of&nbsp;packages.
+    <br />
+    But&nbsp;pay&nbsp;attention&nbsp;that the&nbsp;post&nbsp;install&nbsp;hook won't&nbsp;be&nbsp;called.
+  </section>
+  
+</body>
+</html>
