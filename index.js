@@ -9,6 +9,7 @@ const ffp = require('find-free-port');
 (async () => {
   const readFile = util.promisify(fs.readFile);
   const createDir = util.promisify(fs.mkdir);
+  const getStat = util.promisify(fs.stat);
   const execChildProcess = util.promisify(cp.exec);
   const findFreePort = util.promisify(ffp);
   const tempFolderPath = './temp';
@@ -16,7 +17,13 @@ const ffp = require('find-free-port');
   const [port, front] = await Promise.all([
     findFreePort(process.env.port || 3000),
     readFile('./index.html'),
-    createDir(tempFolderPath),
+    async () => {
+      try {
+        await getStat(tempFolderPath)
+      } catch (error) {
+        return createDir(tempFolderPath)
+      }
+    },
   ]);
 
   return new Koa()
@@ -35,10 +42,15 @@ const ffp = require('find-free-port');
 
       try {
         await createDir(folderPath);
-        await execChildProcess('npm init -y', { cwd: folderPath });
-        await execChildProcess(`npm i ${rawPackageName} --ignore-scripts`, {
+
+        const initProcess = await execChildProcess('npm init -y', { cwd: folderPath });
+        initProcess.kill();
+
+        const installProcess = await execChildProcess(`npm i ${rawPackageName} --ignore-scripts`, {
           cwd: folderPath
         });
+        installProcess.kill();
+
         await zip(`${folderPath}/node_modules`, archivePath);
         const readFileStream = fs.createReadStream(archivePath);
 
