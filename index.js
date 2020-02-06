@@ -15,7 +15,7 @@ const ffp = require('find-free-port');
   const tempFolderPath = './temp';
 
   const [port, front] = await Promise.all([
-    findFreePort(process.env.$PORT || 3000),
+    findFreePort(process.env.PORT || 3000),
     readFile('./index.html'),
     async () => {
       try {
